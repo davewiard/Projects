@@ -1,0 +1,12 @@
+:root {
+    --title-bg-color-red: #E57373;
+    --title-bg-color-green: #A5D6A7
+}
+
+.bg-red {
+    background-color: var(--title-bg-color-red) !important;
+}
+
+.bg-green {
+    background-color: var(--title-bg-color-green) !important;
+}
