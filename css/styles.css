@@ -1,0 +1,56 @@
+:root {
+  --nwea-primary: #ECEFF1;
+}
+
+/*
+ * main body content
+ */
+
+* {
+  box-sizing: border-box;
+}
+
+main .container,
+#previousBlogEntries {
+  margin-top: 32px;
+  margin-bottom: 32px;
+}
+
+#allBlogEntries .card {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+
+
+/*
+ * footer content
+ */
+footer {
+  text-align: center;
+  margin-top: 2em;
+  color: #fff;
+  font-family: 'Roboto', 'Orbitron', sans-serif;
+}
+
+footer ul {
+  list-style-type: none;
+  font-size: 1.3em;
+  margin: auto;
+  padding: 0;
+}
+
+footer ul li {
+  display: inline-block;
+  padding: 0px 5px;
+}
+
+footer a {
+  color: #fff;
+}
+
+.written-by {
+  font-size: 0.75em;
+  margin: auto;
+  color: #fff !important;
+}
