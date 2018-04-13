@@ -1,4 +1,5 @@
-# NWEA Blog Project
+# NWEA Blog 
+Project
 
 This is a project demonstrating the submission and retrieval of blog post
 entries. Refer to the [https://github.com/nwea-techops/blogpostapi](blogpostapi)
@@ -94,7 +95,7 @@ I was able to break away for a few minutes to set up my GitHub repository initia
 my local repository.
 
 #### 8:15 PM
-I was able to step awy for a minute or two again to add, commit, and push all my
+I was able to step away for a minute or two again to add, commit, and push all my
 files up to GitHub and update this timeline. I deliberately did not commit this
 timeline as I felt it was incomplete and needed more content before I could
 commit and push to GitHub.
