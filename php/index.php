@@ -1,5 +1,7 @@
 <?php
 
+require_once('./blog.php');
+
 ini_set('display_errors', 'On');
 error_reporting(E_ALL);
 
@@ -12,21 +14,17 @@ error_reporting(E_ALL);
 // check if this is GET or POST request
 if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') === 'GET') {
   try {
-    # connect to blog.db database
-    $db = new PDO('sqlite:../blog.db');
+    $blog = new Blog();
+    $allPosts = $blog->GetAllPosts();
+  } catch (Exception $e) {
+    print 'Exception : ' . $e->getMessage();
+  }
 
-    // perform selection
-    // This is notably poor structure for large data sets but works well for
-    // the data in the blog.db. Larger data sets should send blocks of results
-    // back to the browser instead of all at once.
-    $sql = "SELECT * FROM posts";
-    $stmt = $db->query($sql);
-    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    $json = json_encode($result);
-    print $json;
+  return $allPosts;
+} elseif (filter_input(INPUT_SERVER, 'REQUEST_METHOD') === 'PUT ') {
+  try {
 
-    $db = null;
-  } catch (\Exception $e) {
+  } catch (Exception $e) {
     print 'Exception : ' . $e->getMessage();
   }
 }
