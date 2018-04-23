@@ -11,14 +11,14 @@
   box-sizing: border-box;
 }
 
-body {
-  background-color: var(--nwea-bg-hover) !important;
-}
-
 .nwea-bg-primary {
   background-color: var(--nwea-primary);
   border: 1px solid var(--nwea-primary);
   color: #000;
+}
+
+.container-fluid {
+  padding: 0 !important;
 }
 
 main .container,
