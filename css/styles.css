@@ -1,13 +1,24 @@
 :root {
-  --nwea-primary: #ECEFF1;
+  --nwea-primary: #FFC107;
+  --nwea-bg-hover: #757575;
 }
+
 
 /*
  * main body content
  */
-
 * {
   box-sizing: border-box;
+}
+
+body {
+  background-color: var(--nwea-bg-hover) !important;
+}
+
+.nwea-bg-primary {
+  background-color: var(--nwea-primary);
+  border: 1px solid var(--nwea-primary);
+  color: #000;
 }
 
 main .container,
@@ -21,6 +32,11 @@ main .container,
   margin-bottom: 16px;
 }
 
+button:hover {
+  border: 1px solid var(--nwea-bg-hover) !important;
+  background-color: var(--nwea-bg-hover) !important;
+  color: #fff;
+}
 
 
 /*
@@ -47,6 +63,10 @@ footer ul li {
 
 footer a {
   color: #fff;
+}
+
+footer a:hover {
+  color: var(--nwea-primary);
 }
 
 .written-by {
