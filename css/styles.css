@@ -32,10 +32,21 @@ main .container,
   margin-bottom: 16px;
 }
 
+button {
+  border: 1px solid var(--nwea-primary) !important;
+  background-color: var(--nwea-primary) !important;
+  color: #000 !important;
+
+}
+
 button:hover {
   border: 1px solid var(--nwea-bg-hover) !important;
   background-color: var(--nwea-bg-hover) !important;
-  color: #fff;
+  color: #fff !important;
+}
+
+.navbar-brand {
+  color: #000 !important;
 }
 
 
