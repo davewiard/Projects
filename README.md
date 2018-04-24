@@ -104,3 +104,44 @@ commit and push to GitHub.
 I took a few minutes to adjust the content of this timeline and finally push the
 first version of README.md to GitHub and call it a night. The POST handler and
 some JavaScript/PHP cleanup are due in the morning.
+
+### Monday, April 23, 2018
+
+#### 10:30 AM
+
+I got started on this project once again after more than a week away from it. I
+started by revamping the PHP back-end code by adding a simple class-oriented
+structure and replacing the monolithic top-to-bottom code with a class.
+
+#### 11:15 AM
+
+I finished the change to the PHP GET methods and got the PHP POST methods worked
+out. The parsing of the POST request and subsequent population of the the class
+properties was done and tested on the command-line.
+
+#### 13:30
+
+After lunch break I got back to working on this some more and had a bit of trouble
+working out why the POST requests seemed to be failing silently. After much digging
+I found a PDO method setAttribute() that allowed me to finally get an error message
+back from my INSERT statement execution instead of a simple "false" value indicating
+the INSERT failed. The blog.db file was not writable. Oops! In addition, I found that
+the parent directory also needed to be writable for some reason. I'm still not sure
+why...
+
+#### 8:30 PM
+
+I decided to come back to this project and get more of my code checked into GitHub.
+I cleaned up the code and removed commented code and debugging statements before
+committing and pushing my changes up to GitHub repo. I decided to add some quick
+Android-style snackbar messages when a blog post was successfully submitted. At the
+same time, I revamped the JavaScript code a little to make it more snackbar-friendly
+and also added some checks to prevent submitting blank title and body texts.
+
+#### 9:00 PM
+
+After adding several test messages I started testing the responsiveness and paying
+greater attention to the overall look-and-feel of the page. It just didn't look right
+when there were multiple blog posts side-by-side so I switched it to always display
+the posts in a single column which now looks much better. It is still using responsive
+framework/techniques.
