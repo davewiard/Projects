@@ -4,6 +4,31 @@ This is a project demonstrating the submission and retrieval of blog post
 entries. Refer to the [https://github.com/nwea-techops/blogpostapi](blogpostapi)
 repository on GitHub for deailts of the project.
 
+## How To Use
+
+### Clone Repository
+
+Clone this repository into your own environment. Ensure the entire repository
+content sits at the root of the web server. This is the simplest way to ensure
+requests to /post and /posts are handled correctly. In Apache parlance, you
+can create a vhost to listen on your port of choice with a DocumentRoot pointing
+to your clone of this repository.
+
+Ensure that your copy of blog.db **and** the containing directory have write
+permissions by your web server's service user. I learned the hard way that
+PHP's PDO driver requires both of these to have write permissions for INSERT
+operations to succeed. I don't understand why PDO require write permissions
+on the containing directory but it does.
+
+### Configure Web Server
+
+You will need to have your web server configured to accept inbound PHP requests
+and have it configured to load index.php when no file name is provided in the
+URL. This will allow requests to /post and /posts to be handled correctly.
+
+Ensure your PHP web server module has PDO support enabled. Mine initially did
+not and I had to rebuild PHP.
+
 ## Development Timeline
 
 ### Thursday, April 12, 2018
@@ -34,7 +59,11 @@ implement the project. I decided on the following:
 * PHP back-end for handling all database interactions and data transformations
 
 As my workstation is running Gentoo Linux with Apache already configured and
-running it was an obvious choice.
+running it was an obvious choice. PHP was chosen for the back-end API because
+Apache was already configured to handle inbound PHP requests to index.php files
+without any modification or configuration changes needed. I considered Python
+but I didn't want to take the time to configure Apache for Python when PHP was
+already setup and ready to use.
 
 I initially started by getting the base UI framework in place. I put together
 the Bootstrap navbar, jumbotron, and input form first. Then I moved on to the
