@@ -17,4 +17,7 @@ if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') === 'GET') {
   return $allPosts;
 }
 
+// TODO
+// Should an error be sent back to the browser that the request was invalid?
+
 ?>

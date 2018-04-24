@@ -20,6 +20,11 @@ if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') === 'POST') {
   } catch (Exception $e) {
     print 'Exception : ' . $e->getMessage();
   }
+
+  return;
 }
+
+// TODO
+// Should an error be sent back to the browser that the request was invalid?
 
 ?>

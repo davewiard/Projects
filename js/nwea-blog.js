@@ -47,6 +47,12 @@ function submitPost() {
         url: window.location.protocol + '//' + window.location.host + '/post/',
         data: { "title": title, "body": body }
   }).done(function(response) {
+
+    // TODO
+    // The "post_id" portion of the title is missing at this point so it cannot
+    // be displayed with the title without refreshing the data from the database.
+    // This was done intentionally to prevent having to make another full round-trip
+    // to the database to get all posts after the new one was successfully inserted.
     let data = { "title": title, "body": body };
     let html = json2html.transform(data, template);
     $('#allBlogEntries > .row').append(html);
