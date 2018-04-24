@@ -13,6 +13,20 @@ let template = {
 
 
 //
+// Display an Android-style snackbar message.
+//
+function showSnackbar(text) {
+  $('#snackbar').text(text);
+
+  // Show the snackbar then, after 3 seconds, remove the show class from DIV
+  $('#snackbar').addClass('show');
+  setTimeout(function(){
+    $('#snackbar').removeClass('show');
+  }, 3000);
+}
+
+
+//
 // Submits the current blog post entry, clears the form, and reloads the blog posts
 //
 function submitPost() {
@@ -31,17 +45,12 @@ function submitPost() {
     $('input[name=newBlogTitle]').val('');
     $('textarea[name=newBlogBody]').val('');
 
-    $('#snackbar').text('Successfully added blog post!')
-
-    // Show the snackbar then, after 3 seconds, remove the show class from DIV
-    $('#snackbar').addClass('show');
-    setTimeout(function(){
-      $('#snackbar').removeClass('show');
-    }, 3000);
+    showSnackbar('Sucessfully added blog post!')
+  }).fail(function(response) {
+    // TODO
+    // This needs to be tested
+    showSnackbar('Failed to insert blog post!');
   });
-
-  // TODO
-  // add a .fail() condition on the ajax call above
 }
 
 
