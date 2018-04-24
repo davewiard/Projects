@@ -33,6 +33,15 @@ function submitPost() {
   let title = $('input[name=newBlogTitle]').val();
   let body = $('textarea[name=newBlogBody]').val();
 
+  // don't submit blank values
+  if (title.length <= 0) {
+    showSnackbar('Title cannot be blank.');
+    return;
+  } else if (body.length <= 0) {
+    showSnackbar('Body cannot be blank.');
+    return;
+  }
+
   let saveData = $.ajax({
         method: "POST",
         url: window.location.protocol + '//' + window.location.host + '/post/',
