@@ -8,15 +8,15 @@
 		private $SectorId;
 		private $SectorName;
 
-    private $Transaction = array();
+		private $Transaction = array();
 
-    public function __construct() { }
+		public function __construct() { }
 
 
-    /*
-     * Sector-related functions
-     */
-    public function getSectorId() {
+		/**
+		 * Sector-related functions
+		 */
+		public function getSectorId() {
 			return $this->SectorId;
 		}
 
@@ -33,48 +33,49 @@
 		}
 
 
-    /*
-     * Symbol-related functions
-     */
-    public function getSymbolId() {
-        return $this->SymbolId;
-    }
+		/**
+		 * Symbol-related functions
+		 */
+		public function getSymbolId() {
+			return $this->SymbolId;
+		}
 
-    public function setSymbolId($value) {
-        $this->SymbolId = $value;
-    }
+		public function setSymbolId($value) {
+			$this->SymbolId = $value;
+		}
 
-    public function getSymbolSymbol() {
-        return $this->SymbolSymbol;
-    }
+		public function getSymbolSymbol() {
+			return $this->SymbolSymbol;
+		}
 
-    public function setSymbolSymbol($value) {
-        $this->SymbolSymbol = $value;
-    }
+		public function setSymbolSymbol($value) {
+			$this->SymbolSymbol = $value;
+		}
 
-    public function getSymbolName() {
-        return $this->SymbolName;
-    }
+		public function getSymbolName() {
+			return $this->SymbolName;
+		}
 
-    public function setSymbolName($value) {
-        $this->SymbolName = $value;
-    }
-
-
-    /*
-     *
-     */
-    public function getShares() {
-      $shares = 0.0000;
-      for ($i = 0; $i < count($this->Transaction); $i++)  {
-        $shares += number_format($this->Transaction[$i]["shares"], 4);
-      }
-
-      return $shares;
-    }
+		public function setSymbolName($value) {
+			$this->SymbolName = $value;
+		}
 
 
-    /*
+		/**
+		 *
+		 */
+		public function getShares() {
+		  $shares = 0.0000;
+		  for ($i = 0; $i < count($this->Transaction); $i++)  {
+			$shares += number_format($this->Transaction[$i]["shares"], 4);
+		  }
+
+		  return $shares;
+		}
+
+
+    /**
+		 * 
       Transaction is an array of hashes:
         {
           0: [
@@ -112,8 +113,9 @@
           ($trade['pretax']) ? true : false,
           $broker,
           $portfolio
-        );
-    */
+				);
+			*
+			*/
 
     public function setTransaction($id, $tradeDate, $shares, $pricePerShare, $pretax, $broker, $portfolio)
     {
