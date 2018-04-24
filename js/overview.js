@@ -31,72 +31,33 @@ function setCurrencyTextColor(value, object, colorClass) {
 } /* setCurrencyTextColor */
 
 
-let brokers = [];
-let portfolios = [];
-let sectors = [];
-let symbols = [];
 let trades = [];
-
 let tradeData = [];
 
 let allTodaysReturn = 0.00;
 let allTotalReturn = 0.00;
 let allEquityValue = 0.00;
 
-// get broker data
-$.ajax({
-  url: window.location.protocol + '//' + window.location.host + '/demo/msp-htmlcss/brokers.php',
-  async: false
-}).then(function(data) {
-  brokers = JSON.parse(data);
-});
-
-// get portfolio data
-$.ajax({
-  url: window.location.protocol + '//' + window.location.host + '/demo/msp-htmlcss/portfolios.php',
-  async: false
-}).then(function(data) {
-  portfolios = JSON.parse(data);
-});
-
-// get sector data
-$.ajax({
-  url: window.location.protocol + '//' + window.location.host + '/demo/msp-htmlcss/sectors.php',
-  async: false
-}).then(function(data) {
-  sectors = JSON.parse(data);
-});
-
-// get symbol data
-$.ajax({
-  url: window.location.protocol + '//' + window.location.host + '/demo/msp-htmlcss/symbols.php',
-  async: false
-}).then(function(data) {
-  symbols = JSON.parse(data);
-});
 
 // get trade data
 $.ajax({
-  url: window.location.protocol + '//' + window.location.host + '/demo/msp-htmlcss/trades.php',
+  url: window.location.protocol + '//' + window.location.host + '/demo/msp-htmlcss/php/trades.php',
   async: false
 }).then(function(data) {
   trades = JSON.parse(data);
 });
 
-//console.log(brokers);
-//console.log(portfolios);
-//console.log(sectors);
-//console.log(symbols);
 //console.log(trades);
 
 
-
-
-// loop over all trades, reshape data to make it easier to merge records into single cards
+/**
+ * loop over all trades, reshape data to make it easier to merge records into
+ * single cards
+ */
 $.each(trades, function(index, trade) {
   let obj = {};
 
-  // determine if the current trade's symbol matches an existing one in tradeData
+  // determine if the current trade's symbol matches one already in tradeData
   for (let i = 0; i < tradeData.length; i++) {
     if (trade.symbol_id === tradeData[i].symbol_id) {
       obj = tradeData[i];
@@ -106,22 +67,16 @@ $.each(trades, function(index, trade) {
 
   if (!obj.hasOwnProperty('symbol')) {
     // match symbol_id in trades to id in symbols
-    let symbol = symbols.filter(s => s.id === trade.symbol_id)[0];
-    obj.symbol_id = symbol.id;
-    obj.symbol = symbol.symbol;
-    obj.symbol_name = symbol.name;
+    obj.symbol_id = trade.symbol_id;
+    obj.symbol_symbol = trade.symbol_symbol;
+    obj.symbol_name = trade.symbol_name;
 
     // match portfolio_id in trades to id in portfolios
-    let portfolio = portfolios.filter(p => p.id === trade.portfolio_id)[0];
-    obj.portfolio = portfolio.name;
+    obj.portfolio = trade.portfolio_name;
 
     // match sector_id in trades to id in sectors
-    let sector = sectors.filter(s => s.id === trade.sector_id)[0];
-    obj.sector = sector.name;
+    obj.sector = trade.sector_name;
   }
-
-  // match broker_id in trades to id in brokers
-  let broker = brokers.filter(b => b.id === trade.broker_id)[0];
 
   // initialize and poopulate the transaction array if it hasn't been done previously
   if (!obj.hasOwnProperty('transaction')) {
@@ -129,10 +84,15 @@ $.each(trades, function(index, trade) {
     tradeData.push(obj);
   }
 
-  // create new object specific to a single transaction/trade
-  // this will get appended to an array of transactions/trades per symbol
+  //
+  // Create new object specific to a single transaction/trade. This will get
+  // appended to an array of transactions/trades per symbol. The effect here
+  // is to merge all trades of a symbol name into one object so the trades
+  // can be summed into a "symbol total" leaving just one card per symbol.
+  //
   let trans = {
-    broker: broker.name,
+    broker_id: trade.broker_id,
+    broker_name: trade.broker_name,
     pretax: (trade.pretax === 't') ? true : false,
     pricePerShare: trade.price_per_share,
     shares: trade.shares,
@@ -142,10 +102,11 @@ $.each(trades, function(index, trade) {
   tradeData[tradeData.length - 1].transaction.push(trans);
 });
 
+
 // sort the tradeData array by the symbol
 tradeData = tradeData.sort(function(a, b) {
-  let x = a.symbol.toUpperCase();
-  let y = b.symbol.toUpperCase();
+  let x = a.symbol_symbol.toUpperCase();
+  let y = b.symbol_symbol.toUpperCase();
 
   if (x < y) {
     return -1
@@ -156,15 +117,17 @@ tradeData = tradeData.sort(function(a, b) {
   return 0;
 });
 
+console.log(tradeData);
+
 // loop across all tradeData entries and create cards
 $.each(tradeData, function(index, data) {
-  let html = '<div class="card [ is-collapsed ]" id="' + data.symbol + '">';
+  let html = '<div class="card [ is-collapsed ]" id="' + data.symbol_symbol + '">';
 
   html += `
     <div class="card--upper [ js-expander ]">
       <div class="symbol">`;
 
-  html += data.symbol;
+  html += data.symbol_symbol;
 
   html += `</div>
       <div class="latest-price bold justify-right">$0.00</div>
@@ -196,7 +159,7 @@ $.each(tradeData, function(index, data) {
             <span class="todays-return justify-right">$0.00</span>
             <div class="chart">`;
 
-  html += '<canvas id="' + data.symbol + '-chart"></canvas>';
+  html += '<canvas id="' + data.symbol_symbol + '-chart"></canvas>';
 
   html += `</div>
         </div>
@@ -210,73 +173,88 @@ $.each(tradeData, function(index, data) {
 
 
 
-//let today = new Date();
-//let dd = today.getDate();
-//let mm = today.getMonth() + 1; // January is 0!
-//
-//let yyyy = today.getFullYear();
-//if (dd < 10) { dd = '0' + dd }
-//if (mm < 10) { mm = '0' + mm }
-//today = mm + '-' + dd + '-' + yyyy;
-//
-//$('#newTradeDate').val(today);
 
+/**
+ * Populate the "Enter New Trade" form with current values to help prevent
+ * typos on symbol names, sector names, etc.
+ */
+let selectOptions = {
+  brokers: new Set(),
+  portfolios: new Set(),
+  symbols: new Set(),
+  sectors: new Set()
+};
 
-
-// get a list of all symbols for select list
-$("#newTradeSymbolDataList").empty();
-$.each(symbols, function(index, data) {
-  let opt = $("<option>" + data.name + "</option>").attr('value', data.symbol);
-  $("#newTradeSymbolDataList").append(opt);
-});
-
-
-// get a list of all sectors for select list
-$("#newTradeSectorDataList").empty();
-$.each(sectors, function(index, data) {
-  let opt = $("<option>" + data.name + "</option>").attr('value', data.sector);
-  $("#newTradeSectorDataList").append(opt);
-});
-
-
-// get a list of all portfolios for select list
-$("#newTradePortfolioDataList").empty();
-$.each(portfolios, function(index, data) {
-  let opt = $("<option></option>").attr("value", data.name);
-  $("#newTradePortfolioDataList").append(opt);
-});
-$('#newTradePortfolioInput').attr('value', 'Robinhood');
-
-
-// get a list of all brokers for select list
 $("#newTradeBrokerDataList").empty();
-$.each(brokers, function(index, data) {
-  let opt = $("<option></option>").attr('value', data.name);
-  $("#newTradeBrokerDataList").append(opt);
+$("#newTradePortfolioDataList").empty();
+$("#newTradeSectorDataList").empty();
+$("#newTradeSymbolDataList").empty();
+
+// loop through all tradeData entries and pull out symbol, sector, portfolio, and
+// broker values
+$.each(tradeData, function(index, trade) {
+  let sym = { "symbol_symbol": trade.symbol_symbol, "symbol_name": trade.symbol_name };
+  if (!selectOptions.symbols.has(sym.symbol_symbol)) {
+    selectOptions.symbols.add(sym);
+  }
+
+  trade.transaction.forEach(function(trans) {
+    selectOptions.brokers.add(trans.broker_name);
+  });
+
+  selectOptions.portfolios.add(trade.portfolio);
+  selectOptions.sectors.add(trade.sector);
 });
-$('#newTradeBrokerInput').attr('value', 'Robinhood');
+
+//console.log(selectOptions);
+
+for (symbol of selectOptions.symbols) {
+  let opt = $("<option>" + symbol.symbol_name + "</option>").attr('value', symbol.symbol_symbol);
+  $("#newTradeSymbolDataList").append(opt);
+}
+
+// TODO
+// This needs to be sorted alphabetically
+for (sector of selectOptions.sectors) {
+  let opt = $("<option>" + sector + "</option>");
+  $("#newTradeSectorDataList").append(opt);
+}
+
+// TODO
+// This needs to be sorted alphabetically
+for (portfolio of selectOptions.portfolios) {
+  let opt = $("<option>" + portfolio + "</option>");
+  $("#newTradePortfolioDataList").append(opt);
+}
+
+// TODO
+// This needs to be sorted alphabetically
+for (broker of selectOptions.brokers) {
+  let opt = $("<option>" + broker + "</option>");
+  $("#newTradeBrokerDataList").append(opt);
+}
 
 
-
-/*
+/**
  * retrieve stock data from IEX API service
  */
 
-let baseUrl = 'https://api.iextrading.com/1.0/stock/market/batch';
+ let baseUrl = 'https://api.iextrading.com/1.0/stock/market/batch';
 let baseParameters = '?displayPercent=true&types=quote,chart&range=1d';
 
-// get a list of all symbols separated by commas
+// get a list of unique symbols separated by commas
+// this list gets injected into the IEX API request
 symbols = [];
 $.each(tradeData, function(index, data) {
-  symbols.push(data.symbol);
+  symbols.push(data.symbol_symbol);
 });
 let symbolList = symbols.join(',');
 
 
-//
-// create the promise for retreiving stock and chart data and execute
-// on the results
-//
+/**
+ * create the promise for retreiving stock and chart data and execute
+ * on the results
+ */
 $.ajax({
   url: baseUrl + baseParameters + '&symbols=' + symbolList
 }).then(function(data) {
@@ -314,7 +292,7 @@ $.ajax({
       } else {
         if (index % chartInterval === 0) {
           // don't keep the data point if it isn't valid
-          if (d.marketAverage != 0) {
+          if (d.marketAverage > 0) {
             chartData.push(d.marketAverage);
 
             // keep a label with the minute the data point came from
@@ -337,9 +315,10 @@ $.ajax({
     $('#' + symbol).find('div.todays-change')
                    .text('$' + Math.abs(change).toFixed(2) + ' (' + Math.abs(changePercent).toFixed(2) + '%)');
 
-    // update expanding data
+    // update expanding card data
     $.each(tradeData, function(index, trade) {
-      if (trade.symbol === symbol) {
+//      console.log(trade);
+      if (trade.symbol_symbol === symbol) {
         let shares = 0;
         let purchasePrice = 0.00;
         for (let i = 0; i < trade.transaction.length; i++) {
@@ -420,7 +399,6 @@ $.ajax({
   } else {
     $('#st-trigger-effects').addClass('bg-red');
   }
-
 
   // change the display of each card to indicate the data has
   // finished loading into the cards
