@@ -14,8 +14,8 @@ requests to /post and /posts are handled correctly. In Apache parlance, you
 can create a vhost to listen on your port of choice with a DocumentRoot pointing
 to your clone of this repository.
 
-Ensure that your copy of blog.db **and** the containing directory have write
-permissions by your web server's service user. I learned the hard way that
+Ensure that your copy of blog.db **and** the containing **db** directory have
+write permissions by your web server's service user. I learned the hard way that
 PHP's PDO driver requires both of these to have write permissions for INSERT
 operations to succeed. I don't understand why PDO require write permissions
 on the containing directory but it does.

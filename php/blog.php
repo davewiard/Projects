@@ -14,7 +14,7 @@
  */
 class Blog {
 
-  private $dbPath = '../blog.db';
+  private $dbPath = '../db/blog.db';
   private $dbType = 'sqlite';
 
   private $title;
