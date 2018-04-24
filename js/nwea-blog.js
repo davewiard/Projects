@@ -3,7 +3,7 @@
 // a title and body text
 //
 let template = {
-  '<>':'div', 'class':'col-md-4', 'html':[
+  '<>':'div', 'class':'col-12', 'html':[
     {'<>':'div', 'class':'card', 'id': 'post_id-${id}', 'html': [
       {'<>': 'div', 'class': 'card-header bg-secondary text-white', 'html': '${title}'},
       {'<>': 'div', 'class': 'card-body', 'html': '${body}'}
