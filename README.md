@@ -145,3 +145,8 @@ greater attention to the overall look-and-feel of the page. It just didn't look 
 when there were multiple blog posts side-by-side so I switched it to always display
 the posts in a single column which now looks much better. It is still using responsive
 framework/techniques.
+
+#### 9:30 PM
+
+Split php/index.php into two separate files, one each for GET and POST functionality.
+Adjusted my Apache setup to point to the new post and posts directories properly.
