@@ -5,7 +5,7 @@
 let template = {
   '<>':'div', 'class':'col-12', 'html':[
     {'<>':'div', 'class':'card', 'id': 'post_id-${post_id}', 'html': [
-      {'<>': 'div', 'class': 'card-header bg-secondary text-white', 'html': '${title}'},
+      {'<>': 'div', 'class': 'card-header bg-secondary text-white', 'html': '#${post_id}: ${title}'},
       {'<>': 'div', 'class': 'card-body', 'html': '${body}'}
     ]}
   ]
