@@ -27,6 +27,17 @@ function submitPost() {
     let data = { "title": title, "body": body };
     let html = json2html.transform(data, template);
     $('#allBlogEntries > .row').append(html);
+
+    $('input[name=newBlogTitle]').val('');
+    $('textarea[name=newBlogBody]').val('');
+
+    $('#snackbar').text('Successfully added blog post!')
+
+    // Show the snackbar then, after 3 seconds, remove the show class from DIV
+    $('#snackbar').addClass('show');
+    setTimeout(function(){
+      $('#snackbar').removeClass('show');
+    }, 3000);
   });
 
   // TODO
