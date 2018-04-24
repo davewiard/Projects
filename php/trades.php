@@ -6,7 +6,7 @@ header("Access-Control-Allow-Methods: *");
 header("Content-Type: application/json");
 */
 
-require_once('php/functions.php');
+require_once('functions.php');
 
 $db = openDatabaseConnection();
 $trades = getTradeData($db);
