@@ -22,44 +22,6 @@ function closeDatabaseConnection($db)
 
 
 /*
- * Retrieves one record from the "Broker" database table.
- * 
- * @param array $db database connection
- * @param string $broker_name Broker name to retrieve data for
- * 
- * @return array first row returned by SELECT statement
- */
-function getBroker($db, $broker_name)
-{
-	$result = pg_query("SELECT * FROM broker WHERE name = '" . $broker_name . "'");
-	return pg_fetch_array($result);
-}
-
-
-/*
- * Retrieves all data from the "Broker" database table.
- * 
- * @param array $db database connection
- * 
- * @return array Array of brokers
- */
-function getBrokerData($db)
-{
-    $brokers = [];
-    
-    // perform the query
-    $result = pg_query($db, "SELECT * FROM broker ORDER BY name");
-
-    // fetch the resultant records in associative array
-    while ($row = pg_fetch_array($result)) {
-        array_push($brokers, $row);
-    }
-
-    return $brokers;
-}
-
-
-/*
  * Retrieves all data from the "Dividend" database table.
  * 
  * @param array $db database connection
@@ -84,117 +46,6 @@ function getDividendData($db)
 
 
 /*
- * Retrieves one record from the "Portfolio" database table.
- * 
- * @param array $db database connection
- * @param string $portfolio_name Portfolio name to retrieve data for
- * 
- * @return array first row returned by SELECT statement
- */
-function getPortfolio($db, $portfolio_name)
-{
-	$result = pg_query("SELECT * FROM portfolio WHERE name = '" . $portfolio_name . "'");
-	return pg_fetch_array($result);
-}
-
-
-/*
- * Retrieves all data from the "Portfolio" database table.
- * 
- * @param array $db database connection
- * 
- * @return array Array of portfolios
- */
-function getPortfolioData($db)
-{
-    $portfolios = [];
-
-    $result = pg_query("SELECT * FROM portfolio ORDER BY name");
-
-    // fetch the resultant records in associative array
-    while ($row = pg_fetch_array($result)) {
-        array_push($portfolios, $row);
-    }
-
-    return $portfolios;
-}
-
-
-/*
- * Retrieves one record from the "Sector" database table.
- * 
- * @param array $db database connection
- * @param string $sector Sector name to retrieve record for
- * 
- * @return array first row returned by SELECT statement
- */
-function getSector($db, $sector)
-{
-	$result = pg_query("SELECT * FROM sector WHERE name = '" . $sector . "'");
-	return pg_fetch_array($result);
-}
-
-
-/*
- * Retrieves all data from the "Sector" database table.
- * 
- * @param array $db database connection
- * 
- * @return array Array of sector names
- */
-function getSectorData($db)
-{
-    $sectors = [];
-
-    $result = pg_query("SELECT * FROM sector ORDER BY name");
-
-    // fetch the resultant records in associative array
-    while ($row = pg_fetch_array($result)) {
-        array_push($sectors, $row);
-    }
-
-    return $sectors;
-}
-
-
-/*
- * Retrieves one record from the "Symbol" database table.
- * 
- * @param array $db database connection
- * @param string $symbol Symbol letters to retrieve
- * 
- * @return array first row returned by SELECT statement
- */
-function getSymbol($db, $symbol)
-{
-	$result = pg_query("SELECT * FROM symbol WHERE symbol = '" . $symbol . "'");
-	return pg_fetch_array($result);
-}
-
-
-/*
- * Retrieves all data from the "Symbol" database table.
- * 
- * @param array $db database connection
- * 
- * @return array Array of symbol names and codes
- */
-function getSymbolData($db)
-{
-    $symbols = [];
-
-    $result = pg_query("SELECT * FROM symbol ORDER BY symbol");
-    
-    // fetch the resultant records in associative array
-    while ($row = pg_fetch_array($result)) {
-        array_push($symbols, $row);
-    }
-
-	return $symbols;
-}
-
-
-/*
  * Retrieves all data from the "Trade" database table.
  * 
  * @param array $db database connection
@@ -205,8 +56,23 @@ function getTradeData($db)
 {
     $trades = [];
 
-    $result = pg_query("SELECT * FROM trade ORDER BY symbol_id");
-
+	/*
+	 * SELECT statement using multiple left joins to collate all the needed
+	 * data into a single SELECT statement that will greatly reduce the
+	 * overhead of data manipulation and client/server round-trips.
+	 */
+	 $stmt = "SELECT T.id, T.trade_date, T.shares, T.price_per_share, T.pretax," .
+					" T.broker_id, B.name as broker_name," .
+					" T.portfolio_id, P.name as portfolio_name," .
+					" T.sector_id, Sec.name as sector_name," .
+					" T.symbol_id, Sym.symbol as symbol_symbol, Sym.name as symbol_name" .
+				" FROM trade T" .
+				" LEFT JOIN broker B on T.broker_id = B.id" .
+				" LEFT JOIN portfolio P on T.portfolio_id = P.id" .
+				" LEFT JOIN sector Sec on T.sector_id = Sec.id" .
+				" LEFT JOIN symbol Sym on T.symbol_id = Sym.id";
+	 $result = pg_query($stmt);
+ 
     // fetch the resultant records in associative array
     while ($row = pg_fetch_array($result)) {
         array_push($trades, $row);
@@ -313,7 +179,7 @@ function putSymbol($db, $symbol, $name)
 }
 
 
-/*
+/**
  * 
  */
 function putTrade($db, $trade_date, $shares, $price_per_share, $pretax,
