@@ -179,4 +179,11 @@ framework/techniques.
 
 Split php/index.php into two separate files, one each for GET and POST functionality.
 Adjusted my Apache setup to point to the new post and posts directories properly.
-Fixed issue with post_id field not being used properly on blog post retrieval. 
+Fixed issue with post_id field not being used properly on blog post retrieval.
+
+### Tuesday, April 24, 2018
+
+#### 4:30 PM
+
+I made adjustments to the directory structure for the database file permissions. This
+required minor adjustments to the PHP source and updated documentation, as well.
