@@ -1,7 +1,7 @@
-//
-// json2html template for building the blog post cards consisting of only
-// a title and body text
-//
+/**
+ * json2html template for building the blog post cards consisting of only
+ * a title and body text
+ */
 let template = {
   '<>':'div', 'class':'col-12', 'html':[
     {'<>':'div', 'class':'card', 'id': 'post_id-${post_id}', 'html': [
@@ -12,9 +12,9 @@ let template = {
 };
 
 
-//
-// Display an Android-style snackbar message.
-//
+/**
+ * Display an Android-style snackbar message.
+ */
 function showSnackbar(text) {
   $('#snackbar').text(text);
 
@@ -26,9 +26,10 @@ function showSnackbar(text) {
 }
 
 
-//
-// Submits the current blog post entry, clears the form, and reloads the blog posts
-//
+/**
+ * Submits the current blog post entry, clears the form, and reloads the
+ * blog posts
+ */
 function submitPost() {
   let title = $('input[name=newBlogTitle]').val();
   let body = $('textarea[name=newBlogBody]').val();
@@ -69,9 +70,9 @@ function submitPost() {
 }
 
 
-//
-// retrieve all posts from the database and populate cards
-//
+/**
+ * retrieve all posts from the database and populate cards
+ */
 function getPosts() {
   // clear the current set of blog posts
   $('#allBlogEntries > .row').empty();
@@ -89,9 +90,9 @@ function getPosts() {
 }
 
 
-//
-// This loads all the blog posts when the page loads
-//
+/**
+ * This loads all the existing blog posts when the page first loads
+ */
 $(document).ready(function() {
   // register onClick event for the submit button
   $('#newBlogSubmit').click(submitPost);
