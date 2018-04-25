@@ -1,7 +1,7 @@
 # NWEA Blog Project
 
 This is a project demonstrating the submission and retrieval of blog post
-entries. Refer to the [https://github.com/nwea-techops/blogpostapi](blogpostapi)
+entries. Refer to the [blogpostapi](https://github.com/nwea-techops/blogpostapi)
 repository on GitHub for deailts of the project.
 
 ## How To Use
