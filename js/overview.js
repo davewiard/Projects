@@ -58,14 +58,19 @@ $.each(trades, function(index, trade) {
   let obj = {};
 
   // determine if the current trade's symbol matches one already in tradeData
+  // TODO
+  // Refactor this loop as a foreach with a lambda expression + filter
   for (let i = 0; i < tradeData.length; i++) {
     if (trade.symbol_id === tradeData[i].symbol_id) {
+//      console.log(tradeData[i]);
       obj = tradeData[i];
       break;
     }
   }
 
-  if (!obj.hasOwnProperty('symbol')) {
+//  console.log(obj);
+
+  if (!obj.hasOwnProperty('symbol_id')) {
     // match symbol_id in trades to id in symbols
     obj.symbol_id = trade.symbol_id;
     obj.symbol_symbol = trade.symbol_symbol;
@@ -78,7 +83,7 @@ $.each(trades, function(index, trade) {
     obj.sector = trade.sector_name;
   }
 
-  // initialize and poopulate the transaction array if it hasn't been done previously
+  // initialize and populate the transaction array if it hasn't been done previously
   if (!obj.hasOwnProperty('transaction')) {
     obj.transaction = [];
     tradeData.push(obj);
@@ -99,7 +104,10 @@ $.each(trades, function(index, trade) {
     tradeDate: trade.trade_date
   };
 
-  tradeData[tradeData.length - 1].transaction.push(trans);
+//  console.log(trans);
+//  console.log(obj);
+
+  obj.transaction.push(trans);
 });
 
 
@@ -117,7 +125,7 @@ tradeData = tradeData.sort(function(a, b) {
   return 0;
 });
 
-console.log(tradeData);
+//console.log(tradeData);
 
 // loop across all tradeData entries and create cards
 $.each(tradeData, function(index, data) {
@@ -334,13 +342,13 @@ $.ajax({
         // update total return
         let totalReturn = (equityValue - purchasePrice).toFixed(2);
         allTotalReturn += parseFloat(totalReturn);
-        setCurrencyTextColor(totalReturn, $('#' + symbol).find('span.total-return'), ["text-green", "text-red"]);
+        setCurrencyTextColor(totalReturn, $('#' + symbol).find('span.total-return'), ["text-light-green", "text-red"]);
         $('#' + symbol).find('span.total-return').text('$' + Math.abs(totalReturn).toFixed(2));
 
         // update today's return
         let todaysReturn = (shares * parseFloat(change)).toFixed(2);
         allTodaysReturn += parseFloat(todaysReturn);
-        setCurrencyTextColor(todaysReturn, $('#' + symbol).find('span.todays-return'), ["text-green", "text-red"]);
+        setCurrencyTextColor(todaysReturn, $('#' + symbol).find('span.todays-return'), ["text-light-green", "text-red"]);
         $('#' + symbol).find('span.todays-return').text('$' + Math.abs(todaysReturn).toFixed(2));
       }
     });
@@ -388,10 +396,10 @@ $.ajax({
   // update globals
   $('#allEquityValue').text('$' + allEquityValue.toFixed(2));
 
-  setCurrencyTextColor(allTotalReturn, $('#allTotalReturn'), ["text-light-green", "text-light-red"]);
+  setCurrencyTextColor(allTotalReturn, $('#allTotalReturn'), ["text-green", "text-red"]);
   $('#allTotalReturn').text('$' + Math.abs(allTotalReturn).toFixed(2));
 
-  setCurrencyTextColor(allTodaysReturn, $('#allTodaysReturn'), ["text-light-green", "text-light-red"]);
+  setCurrencyTextColor(allTodaysReturn, $('#allTodaysReturn'), ["text-green", "text-red"]);
   $('#allTodaysReturn').text('$' + Math.abs(allTodaysReturn).toFixed(2));
 
   if (parseFloat(allTodaysReturn) > parseFloat(0.00)) {
