@@ -11,5 +11,6 @@ require_once('functions.php');
 $db = openDatabaseConnection();
 $trades = getTradeData($db);
 echo json_encode($trades);
+closeDatabaseConnection($db);
 
 ?>
