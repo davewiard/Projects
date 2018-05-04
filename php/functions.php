@@ -74,7 +74,7 @@ function getTradeData($db)
 	 $result = pg_query($stmt);
  
     // fetch the resultant records in associative array
-    while ($row = pg_fetch_array($result)) {
+    while ($row = pg_fetch_array($result, NULL, PGSQL_ASSOC)) {
         array_push($trades, $row);
     }
 
