@@ -342,13 +342,13 @@ $.ajax({
         // update total return
         let totalReturn = (equityValue - purchasePrice).toFixed(2);
         allTotalReturn += parseFloat(totalReturn);
-        setCurrencyTextColor(totalReturn, $('#' + symbol).find('span.total-return'), ["text-light-green", "text-red"]);
+        setCurrencyTextColor(totalReturn, $('#' + symbol).find('span.total-return'), ["text-green", "text-red"]);
         $('#' + symbol).find('span.total-return').text('$' + Math.abs(totalReturn).toFixed(2));
 
         // update today's return
         let todaysReturn = (shares * parseFloat(change)).toFixed(2);
         allTodaysReturn += parseFloat(todaysReturn);
-        setCurrencyTextColor(todaysReturn, $('#' + symbol).find('span.todays-return'), ["text-light-green", "text-red"]);
+        setCurrencyTextColor(todaysReturn, $('#' + symbol).find('span.todays-return'), ["text-green", "text-red"]);
         $('#' + symbol).find('span.todays-return').text('$' + Math.abs(todaysReturn).toFixed(2));
       }
     });
