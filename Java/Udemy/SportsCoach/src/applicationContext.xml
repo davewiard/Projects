@@ -1,24 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-    xmlns:context="http://www.springframework.org/schema/context"
-    xsi:schemaLocation="http://www.springframework.org/schema/beans
-    http://www.springframework.org/schema/beans/spring-beans.xsd
-    http://www.springframework.org/schema/context
-    http://www.springframework.org/schema/context/spring-context.xsd">
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- load the properties file: sport.properties -->
+    <context:property-placeholder location="classpath:sport.properties" />
 
     <!-- Define your beans here -->
     <bean id="pepTalkService"
-          class="com.davewiard.sportscoach.PepTalkService">
+          class="com.davewiard.sportscoach.GoTeamPepTalkService">
     </bean>
 
     <bean id="sportsCoach"
-          class="com.davewiard.sportscoach.TennisCoach">
+          class="com.davewiard.sportscoach.BaseballCoach">
+
+        <!-- setup constructor injection -->
         <constructor-arg ref="pepTalkService" />
     </bean>
+
+    <bean id="myGolfCoach"
+          class="com.davewiard.sportscoach.GolfCoach">
+
+        <!-- set up setter injection -->
+        <property name="pepTalkService" ref="pepTalkService" />
+        <property name="emailAddress" value="${golf.email}" />
+        <property name="team" value="${golf.team}" />
+    </bean>
+
 </beans>
-
-
-
-
-

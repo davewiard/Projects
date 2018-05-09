@@ -8,8 +8,20 @@ public class TennisCoach implements Coach {
         this.pepTalkService = pepTalkService;
     }
 
+    public TennisCoach() {
+
+    }
+
     @Override
     public String getDailyWorkout() {
         return "Do 30 up/down drills.";
     }
+
+    @Override
+    public String getDailyPepTalk() {
+        // use my pepTalkService to get a pep talk
+        return pepTalkService.getPepTalk() + " Wimbledon starts next week!";
+    }
+
+
 }

@@ -8,8 +8,18 @@ public class TrackCoach implements Coach {
         this.pepTalkService = pepTalkService;
     }
 
+    public TrackCoach() {
+
+    }
+
     @Override
     public String getDailyWorkout() {
         return "Run a hard 5k";
+    }
+
+    @Override
+    public String getDailyPepTalk() {
+        // use my pepTalkService to get a pep talk
+        return "Just do It: " + pepTalkService.getPepTalk();
     }
 }
