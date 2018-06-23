@@ -1,0 +1,13 @@
+{
+  "scheduleDate": 1528286955970,
+  "serviceLineIds": [
+    "e675e4e7-978a-4c89-ad09-63b30965821f"
+  ],
+  "duration": 15,
+  "orderedLabId": "",
+  "page": 1,
+  "latLong": "(45.5235,-122.676)",
+  "clinicId": "",
+  "allClinics": true,
+  "providerId": ""
+}

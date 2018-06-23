@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# globals
+endpoint_base="https://www.zoomcare.com/zoom-api"
+endpoint="${endpoint_base}/schedule"
+
+json="zoom.web.json"
+
+# replace scheduleDate with current timestamp
+# now() that works: 1528286488639
+python zoom.py $json
+
+# make the request
+curl --header "Content-type: application/json"	\
+     --data @$json					                    \
+     --output zoom.response.json                \
+     $endpoint

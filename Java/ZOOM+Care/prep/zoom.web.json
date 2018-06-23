@@ -1,0 +1,12 @@
+{
+  "allClinics": false,
+  "latLong": "(45.5235,-122.676)",
+  "page": 1,
+  "serviceLineIds": [
+    "e675e4e7-978a-4c89-ad09-63b30965821f",
+    "81ccb792-1542-414a-8e86-f567fc20d107"
+  ],
+  "clinicId": null,
+  "scheduleDate": 1529683568385,
+  "providerId": null
+}

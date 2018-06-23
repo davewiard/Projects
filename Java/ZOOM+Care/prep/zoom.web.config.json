@@ -1,0 +1,141 @@
+{
+   "appointmentHoldDuration": 10,
+   "idleTimeLimit": 120,
+   "timeOutWithin": 180,
+   "careChatStartPage": "/chat-start",
+   "careChatSchedulerText": "Chat with a doctor now...",
+   "careChatSchedulerImage": "/images/plus-now/Chat-Icon.svg",
+   "navDefault": "web-201612",
+   "releaseTimeStamp": 1527644746595,
+   "staticBaseUrl": "https://s3-us-west-2.amazonaws.com/zc-content/site-assets",
+   "api": {
+      "_public": "https://portal.zoomcare.com/ZoomCareRestApi",
+      "_zoom": "/zoom-api",
+      "_node": "",
+      "endpoints": {
+         "zoomAPI": {
+            "account": {
+               "changePassword": "/account/change-password",
+               "recoverPassword": "/account/recover-password",
+               "resetPassword": "/account/reset-password",
+               "login": "/account/login",
+               "create": "/account",
+               "secretQuestions": "/account/secret-questions",
+               "exists": "/account/exists",
+               "signAgreement": "/account/financial-agreement/%id/sign",
+               "checkAgreement": "/account/financial-agreement/%id/current",
+               "termsOfService": {
+                  "check": "/account/terms-of-service/%id/current",
+                  "sign": "/account/terms-of-service/%id/sign",
+                  "agreement": "/account/terms-of-service"
+               },
+               "privacyPolicy": {
+                  "check": "/account/privacy-policy/%id/current",
+                  "sign": "/account/privacy-policy/%id/sign",
+                  "agreement": "/account/privacy-policy"
+               },
+               "accountCode": "/account/account-code/",
+               "verifyEmail": "/account/verify-email/",
+               "question": "/account/question",
+               "getByAlias": "/account/get-by-alias/"
+            },
+            "appointment": {
+               "hold": "/appointment/",
+               "hold2": "/appointment/rapid-reg",
+               "get": "/appointment/",
+               "update": "/appointment",
+               "confirm": "/appointment/confirm",
+               "list": "/appointment/my/appointments",
+               "list2": "/appointment/my/appointments2",
+               "cancel": "/appointment/%s/cancel",
+               "reschedule": "/appointment/reschedule",
+               "addOrders": "/appointment/%s/add-orders",
+               "addExternalOrder": "/appointment/%s/add-external-order",
+               "mostRecentAppointmentTime": "/appointment/most-recent-appointment-date/%persona-id",
+               "referrals": "/appointment/referral/unfulfilled"
+            },
+            "content": {
+               "mapped": "/content/type/%type/id/%id",
+               "list": "/content/type/%type"
+            },
+            "feedback": {
+               "rating": "/feedback/mot5-review"
+            },
+            "insurance": {
+               "list": "/insurance/patient/%s",
+               "auto": "/insurance/auto",
+               "health": "/insurance/health",
+               "workersComp": "/insurance/workers-compensation",
+               "healthPlans": "/insurance/health-plans",
+               "dentalPlans": "/insurance/dental-plans"
+            },
+            "person": {
+               "dependents": "/person/my/dependents",
+               "imagingOrdersList": "/person/my/imaging-orders/pending",
+               "profile": "/person/my/profile",
+               "activeCreditCards": "/person/active-credit-cards",
+               "creditCards": "/person/my/credit-cards",
+               "update": "/person/",
+               "get": "/person/"
+            },
+            "payment": {
+               "setCardPriority": "/payment/credit-card/set-priority/%easy-pay-id",
+               "createAnnualConsent": "/payment/create-annual-consent",
+               "deleteCard": "/payment/credit-card/%token-id",
+               "isCardValid": "/payment/is-card-valid",
+               "updateCreditCard": "/payment/credit-card",
+               "getFullReceipt": "/payment/full-receipt/%encounter-id"
+            },
+            "plusnow": {
+               "available": "/plusnow/status",
+               "getSessionId": "/plusnow/sessions",
+               "assignConsentId": "/plusnow/sessions/assign-consent-id",
+               "activateSession": "/plusnow/sessions/activate",
+               "zipcode": "/plusnow/zip-code/%zip",
+               "getSessionState": "/plusnow/sessions/%session-id/state"
+            },
+            "schedule": {
+               "reasons": "/schedule/service-lines/nav",
+               "availabilityDatesMultipleServiceLines": "/schedule/availability-dates",
+               "getMulti": "/schedule",
+               "serviceLineSuggestSymptoms": "/schedule/service-line/%s/symptoms/",
+               "serviceLineSymptoms": "/schedule/service-line/%s/symptoms"
+            },
+            "agreement": {
+               "createAgreement": "/profile/agreement",
+               "getSignedAgreements": "/profile/agreement/persona",
+               "getAgreementsNeeded": "/profile/agreement/needed",
+               "signAgreement": "/profile/agreement/persona",
+               "getSignedAgreementByType": "/profile/agreement/persona/type/%agreement-type",
+               "getAgreementByType": "/profile/agreement/%agreement-type"
+            }
+         },
+         "node": {
+            "content": {
+               "list": "/a/content/%s/list",
+               "single": "/a/content/%s"
+            },
+            "schedule": {
+               "serviceLines": {
+                  "get": "/a/public/service-line/%s",
+                  "list": "/a/public/service-lines"
+               }
+            },
+            "clinic": {
+               "get": "/a/public/clinics/%s",
+               "serviceLines": "/a/public/clinics/%s/service-lines"
+            },
+            "provider": {
+               "get": "/a/public/providers/%s",
+               "serviceLines": "/a/public/providers/%s/service-lines"
+            },
+            "zoomAPI": {
+               "schedule": {
+                  "reasons": "/a/public/service-lines/nav"
+               }
+            }
+         }
+      }
+   },
+   "_zoom_prefix": "https://api.zoomcare.com/zoomapi-service/v2/rest"
+}

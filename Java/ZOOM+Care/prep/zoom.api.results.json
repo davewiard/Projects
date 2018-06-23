@@ -1,0 +1,15 @@
+{
+  "serviceSchedules":[
+    {
+      "scheduleDateString":null,
+      "scheduleDate":null,
+      "serviceLineId":"e675e4e7-978a-4c89-ad09-63b30965821f",
+      "clinicPage":1,
+      "clinics":[],
+      "showMore":false,
+      "serviceMessage":"We can see you today at ZOOM+Care.",
+      "nextAvailableDate":1528182000000,
+      "foldClinics":false
+    }
+  ]
+}
