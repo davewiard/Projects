@@ -1,1 +1,6 @@
-/www/demo/msp-common/css/msp-common.css
+/*
+ * site-wide styles
+ */
+.hide {
+	display: none;
+}
