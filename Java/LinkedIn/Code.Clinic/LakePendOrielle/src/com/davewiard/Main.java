@@ -7,49 +7,26 @@ import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class Main {
-    LocalDateTime startDateTime;
-    LocalDateTime endDateTime;
+    static Scanner scanner = new Scanner(System.in);
+    static LocalDateTime startDateTime;
+    static LocalDateTime endDateTime;
 
     public static void main(String[] args) {
-        String startDateString;
-        String startTimeString;
-        String endDateString;
-        String endTimeString;
-
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter starting date (YYYY-MM-DD): ");
-        startDateString = scanner.next();
-        System.out.print("Enter starting time (24H:MM:SS): ");
-        startTimeString = scanner.next();
 
         try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            LocalDate startDate = LocalDate.parse(startDateString, formatter);
-            System.out.println("input: start date: " + startDateString + ", LocalDate: " + startDate);
+            // read start/end times from user
+            startDateTime = getLocalDateTime("start");
+            endDateTime = getLocalDateTime("end");
+            System.out.println("LocalDateTime start: " + startDateTime);
+            System.out.println("LocalDateTime end: " + endDateTime);
 
-            formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-            LocalTime startTime = LocalTime.parse(startTimeString, formatter);
-            System.out.println("input: start time: " + startTimeString + ", LocalTime: " + startTime);
+            // read data from file(s)
         } catch (Exception e) {
             e.printStackTrace();
             return;
         }
 
-        System.out.print("Enter end date (YYYY-MM-DD): ");
-        endDateString = scanner.next();
-        System.out.print("Enter end time (24H:MM:SS): ");
-        endTimeString = scanner.next();
-
-        try {
-            LocalDate startDate = getLocalDate(startDateString);
-            LocalDate endDate = getLocalDate(endDateString);
-
-            LocalTime startTime = getLocalTime(startTimeString);
-            LocalTime endTime = getLocalTime(endTimeString);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return;
-        }
+        scanner.close();
     }
 
 
@@ -57,46 +34,36 @@ public class Main {
      *
      * @return
      */
-    public static LocalDateTime getLocalDateTime() {
-        LocalDateTime localDateTime = null;
+    private static LocalDateTime getLocalDateTime(String startOrEnd) {
+        LocalDateTime localDateTime;
 
+        try {
+            System.out.print("Enter " + startOrEnd + " date (YYYY-MM-DD): ");
+            String dateString = scanner.next();
+            System.out.print("Enter " + startOrEnd + " time (24H:MM:SS): ");
+            String timeString = scanner.next();
 
+            try {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                LocalDate localDate = LocalDate.parse(dateString, formatter);
+                System.out.println("input: " + startOrEnd + " date: " + dateString + ", LocalDate: " + localDate);
+
+                formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+                LocalTime localTime = LocalTime.parse(timeString, formatter);
+                System.out.println("input: " + startOrEnd + " time: " + timeString + ", LocalTime: " + localTime);
+
+                localDateTime = LocalDateTime.of(localDate, localTime);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
 
         return localDateTime;
-    }
-
-
-    /**
-     *
-     * @param inputDate
-     * @return
-     */
-    public static LocalDate getLocalDate(String inputDate) {
-        LocalDate localDate = null;
-
-        try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy_MM_dd");
-            localDate = LocalDate.parse(inputDate, formatter);
-            System.out.println("input: date string: " + inputDate + ", LocalDate: " + localDate);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return localDate;
-    }
-
-    public static LocalTime getLocalTime(String inputTime) {
-        LocalTime localTime = null;
-
-        try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-            localTime = LocalTime.parse(inputTime, formatter);
-            System.out.println("input: time string: " + inputTime + ", LocalTime: " + localTime);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return localTime;
     }
 
 }
