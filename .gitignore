@@ -1,7 +1,11 @@
 **/out/
 **/*.class
 **/node_modules/
-
-Java/LinkedIn/Code\.Clinic/____Exercise\.Files____/
-
+C/Google\.Interview\.Practice/fib
+C/Google\.Interview\.Practice/add_to_16
+C/Google\.Interview\.Practice/add_one_to_array
+Go/bin/
+Go/src/github\.com/davewiard/hello/hello
+Go/src/github\.com/davewiard/types/types
 Java/Junk/
+Java/LinkedIn/Code\.Clinic/____Exercise\.Files____/
