@@ -26,7 +26,14 @@ int main(int argc, char const *argv[])
 // Recursively step through the input data. Look at the input
 // length, first character, and first two characters to decide
 // what to do. With each pass, shorten the input data string
-// 
+//
+// NOTE:
+// This implementation is using straight recursion which is an O(n^2)
+// solution. A much better way would be using dynamic programming
+// techniques to store calculated values in a hash table with data_length
+// as the key to retrieve the value instead of calculating it multiple
+// time. Using dynamic programming ("memoization") would result in an
+// O(n) solution.
 //
 int num_ways(char data[], int data_length)
 {
