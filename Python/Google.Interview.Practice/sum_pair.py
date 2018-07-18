@@ -1,8 +1,12 @@
 #!/usr/bin/env python
 
 '''
-This problem was found online in Google interview question video but was
+This problem was given by Google as a sample interview question video but was
 also delivered to me by Daily Coding Problem: Problem #1.
+
+The Google video solved this problem in C++ but I chose Python. I have also
+now enhanced the script to generate the input list as 100 random numbers
+between [1, 100]
 '''
 
 import random
