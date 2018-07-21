@@ -1,12 +1,13 @@
 #!/usr/bin/env python
 
 '''
-This problem was given by Google as a sample interview question video but was
-also delivered to me by Daily Coding Problem: Problem #1.
+Given a list of numbers and a number k, return whether any two numbers
+from the list add up to k.
 
-The Google video solved this problem in C++ but I chose Python. I have also
-now enhanced the script to generate the input list as 100 random numbers
-between [1, 100]
+For example, given [10, 15, 3, 7] and k of 17, return true since
+10 + 7 is 17.
+
+Bonus: Can you do this in one pass?
 '''
 
 import random
