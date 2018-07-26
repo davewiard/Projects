@@ -13,10 +13,19 @@ long fib(long n);
 //
 int main(int argc, char **argv)
 {
-  long n = 1000;
+  long n;
+
+  printf("argc = %d\n", argc);
+  if (argc > 1) {
+    n = atoi(argv[1]);
+  } else {
+    printf("Enter position to find value for: ");
+    scanf("%ld", &n);
+  }
+
+  printf("n = %ld\n", n);
   printf("fib = %ld\n", fib(n));
 }
-
 
 //
 // Fibonacci sequence calculated iteratively using bottom up
@@ -30,7 +39,7 @@ long fib(long n)
   if (n == 0 || n == 1)
     return 1;
 
-  for (long i = 2; i < n; i++) {
+  for (long i = 1; i < n; i++) {
     result = prev1 + prev2;
     prev1 = prev2;
     prev2 = result;
